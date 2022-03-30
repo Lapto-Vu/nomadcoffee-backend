@@ -13,11 +13,24 @@ export default gql`
     updatedAt: String
   }
 
+  type Response {
+    ok: Boolean
+    error: String
+  }
+
   type Query {
-    hello: String
+    users: [User]
+    user(id: Int!): User
   }
 
   type Mutation {
-    mutate: String
+    createAccount(
+      username: String!
+      name: String!
+      email: String!
+      password: String!
+      location: String
+      githubUsername: String
+    ): Response
   }
 `;
