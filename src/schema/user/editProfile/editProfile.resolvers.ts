@@ -11,17 +11,16 @@ const resolvers: Resolvers = {
         { name, email, location, avatarURL, password: newPassword },
         { loggedInUser, client }
       ) => {
-        let newURL = null;
-        if (avatarURL) {
-          const { filename, createReadStream } = await avatarURL;
+        const uploadFile = ({ file }) => {
+          const { filename, createReadStream } = file;
           const newFilename = `${loggedInUser.id}-${Date.now()}-${filename}`;
-          const readStream = createReadStream();
-          const writeStream = createWriteStream(
+          const stream = createReadStream();
+          const out = createWriteStream(
             process.cwd() + "/uploads/" + newFilename
           );
-          readStream.pipe(writeStream);
-          newURL = `http://localhost:4000/static/${newFilename}`;
-        }
+          stream.pipe(out);
+          return `http://192.168.0.11:4043/static/${newFilename}`;
+        };
         const hashed = (pw) => bcrypt.hash(pw, 10);
 
         const updated = await client.user.update({
@@ -30,7 +29,7 @@ const resolvers: Resolvers = {
             name,
             email,
             location,
-            ...(avatarURL && { avatar: newURL }),
+            avatarURL: avatarURL && (await uploadFile(avatarURL)),
             password: newPassword && (await hashed(newPassword)),
           },
         });

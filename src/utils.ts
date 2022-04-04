@@ -7,6 +7,7 @@ export const getUser = async (token) => {
     if (!token) {
       return null;
     }
+
     const payload: any = await jwt.verify(token, process.env.SECRET_KEY);
 
     if ("id" in payload) {
@@ -19,7 +20,8 @@ export const getUser = async (token) => {
     }
 
     return null;
-  } catch {
+  } catch (e) {
+    console.log(e);
     return null;
   }
 };
