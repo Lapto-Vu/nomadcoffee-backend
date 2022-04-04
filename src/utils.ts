@@ -21,7 +21,6 @@ export const getUser = async (token) => {
 
     return null;
   } catch (e) {
-    console.log(e);
     return null;
   }
 };
