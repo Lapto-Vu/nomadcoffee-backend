@@ -1,7 +1,7 @@
 import { createWriteStream } from "fs";
 import { Resolvers } from "../../../types";
 import bcrypt from "bcrypt";
-import { protectedResolver } from "../../../utils";
+import { protectedResolver } from "../users.utils";
 
 const resolvers: Resolvers = {
   Mutation: {

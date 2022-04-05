@@ -5,7 +5,7 @@ import { ApolloServer } from "apollo-server-express";
 import { graphqlUploadExpress } from "graphql-upload";
 import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
 import { typeDefs, resolvers } from "./schema";
-import { getUser } from "./utils";
+import { getUser } from "./schema/user/users.utils";
 import client from "./client";
 
 const PORT = process.env.PORT;
