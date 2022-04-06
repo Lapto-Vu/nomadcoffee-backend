@@ -19,8 +19,40 @@ model User {
   location String?
   avatarURL String?
   githubUsername String?
+  coffeshop CoffeeShop[]
   followers User[] @relation("FollowRelation", references: [id])
   following User[] @relation("FollowRelation", references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Category {
+  id Int @id @default(autoincrement())
+  name String @unique
+  slug String
+  shops CoffeeShop[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CoffeeShop {
+  id Int @id @default(autoincrement())
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+  name String
+  latitude String?
+  longitude String?
+  photos CoffeeShopPhoto[]
+  categories Category[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CoffeeShopPhoto {
+  id Int @id @default(autoincrement())
+  url String
+  shops CoffeeShop @relation(fields: [shopsId], references: [id], onDelete: SetNull, onUpdate: SetNull)
+  shopsId Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

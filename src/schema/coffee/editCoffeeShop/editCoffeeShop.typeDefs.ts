@@ -1,0 +1,19 @@
+import { gql } from "apollo-server-core";
+
+export default gql`
+  scalar Upload
+  type editCoffeeShopResult {
+    ok: Boolean!
+    error: String
+  }
+  type Mutation {
+    editCoffeeShop(
+      id: Int!
+      name: String
+      latitude: String
+      longitude: String
+      categories: String
+      photoFiles: [Upload]
+    ): editCoffeeShopResult
+  }
+`;

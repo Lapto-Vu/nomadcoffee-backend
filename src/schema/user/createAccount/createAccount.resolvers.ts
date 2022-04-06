@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import { Resolvers } from "../../../types";
+import { hashUtils } from "../../../utils";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -17,8 +18,6 @@ const resolvers: Resolvers = {
           return { ok: false, error: "username or email is already taken" };
         }
 
-        const hashPassword = await bcrypt.hash(password, 10);
-
         await client.user.create({
           data: {
             username,
@@ -26,7 +25,7 @@ const resolvers: Resolvers = {
             email,
             location,
             githubUsername,
-            password: hashPassword,
+            password: hashUtils(password),
           },
         });
 
