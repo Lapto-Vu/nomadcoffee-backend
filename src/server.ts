@@ -3,7 +3,10 @@ import express from "express";
 import http from "http";
 import { ApolloServer } from "apollo-server-express";
 import { graphqlUploadExpress } from "graphql-upload";
-import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
+import {
+  ApolloServerPluginDrainHttpServer,
+  ApolloServerPluginLandingPageGraphQLPlayground,
+} from "apollo-server-core";
 import { typeDefs, resolvers } from "./schema";
 import { getUser } from "./schema/user/users.utils";
 import client from "./client";
@@ -22,7 +25,10 @@ async function startApolloServer() {
         client,
       };
     },
-    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+    plugins: [
+      ApolloServerPluginDrainHttpServer({ httpServer }),
+      ApolloServerPluginLandingPageGraphQLPlayground(),
+    ],
   });
 
   await apollo.start();
