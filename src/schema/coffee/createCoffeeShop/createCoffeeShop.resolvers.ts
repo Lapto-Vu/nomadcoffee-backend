@@ -22,12 +22,15 @@ const resolvers: Resolvers = {
               latitude,
               longitude,
               photos: {
-                create: await photoFiles.map((file) => ({
-                  url: uploadUtils(file),
-                })),
+                create:
+                  photoFiles &&
+                  (await photoFiles.map((file) => ({
+                    url: uploadUtils(file),
+                  }))),
               },
               categories: {
-                connectOrCreate: await tagsSeperatorUtils(categories),
+                connectOrCreate:
+                  categories && (await tagsSeperatorUtils(categories)),
               },
             },
           });
@@ -36,7 +39,7 @@ const resolvers: Resolvers = {
           console.log(e);
           return {
             ok: false,
-            error: "error happend, can not create coffeShop",
+            error: `error happend, can not create coffeShop`,
           };
         }
       }

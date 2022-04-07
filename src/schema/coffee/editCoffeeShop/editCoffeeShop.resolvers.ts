@@ -31,8 +31,8 @@ const resolvers: Resolvers = {
               latitude,
               longitude,
               photos: photoFiles && {
-                disconnect: owner.photos,
-                create: await photoFiles?.map((file) => ({
+                deleteMany: {},
+                create: await photoFiles.map((file) => ({
                   url: uploadUtils(file),
                 })),
               },
@@ -44,7 +44,6 @@ const resolvers: Resolvers = {
           });
           return { ok: true };
         } catch (e) {
-          console.log(e);
           return { ok: false, error: "can not edit coffeeshop" };
         }
       }

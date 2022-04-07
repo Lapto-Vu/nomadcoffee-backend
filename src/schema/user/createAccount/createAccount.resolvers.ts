@@ -1,4 +1,3 @@
-import bcrypt from "bcrypt";
 import { Resolvers } from "../../../types";
 import { hashUtils } from "../../../utils";
 
@@ -25,7 +24,7 @@ const resolvers: Resolvers = {
             email,
             location,
             githubUsername,
-            password: hashUtils(password),
+            password: await hashUtils(password),
           },
         });
 
