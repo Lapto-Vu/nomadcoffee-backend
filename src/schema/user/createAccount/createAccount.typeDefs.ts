@@ -4,6 +4,7 @@ export default gql`
   type createAccountRequest {
     ok: Boolean!
     error: String
+    type: String
   }
 
   type Mutation {

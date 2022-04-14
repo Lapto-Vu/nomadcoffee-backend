@@ -3,6 +3,7 @@ import { gql } from "apollo-server-core";
 export default gql`
   type loginRequest {
     ok: Boolean!
+    type: String
     error: String
     token: String
   }

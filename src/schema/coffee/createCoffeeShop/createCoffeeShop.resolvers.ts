@@ -36,7 +36,6 @@ const resolvers: Resolvers = {
           });
           return { ok: true };
         } catch (e) {
-          console.log(e);
           return {
             ok: false,
             error: `error happend, can not create coffeShop`,

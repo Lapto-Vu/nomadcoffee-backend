@@ -8,9 +8,11 @@ const resolvers: Resolvers = {
           take: 5,
           skip: lastId ? 1 : 0,
           ...(lastId && { cursor: { id: lastId } }),
+          include: { photos: true, categories: true, user: true },
         });
         return { ok: true, coffeeShop };
       } catch (e) {
+        console.log(e);
         return { ok: false, error: "can not get coffeeshops" };
       }
     },
@@ -18,6 +20,7 @@ const resolvers: Resolvers = {
       try {
         const coffeeShop = await client.coffeeShop.findUnique({
           where: { id },
+          include: { categories: true, photos: true },
         });
         return { ok: true, coffeeShop };
       } catch (e) {

@@ -9,12 +9,28 @@ const resolvers: Resolvers = {
       { client }
     ) => {
       try {
-        const exit = await client.user.findFirst({
-          where: { OR: [{ username }, { email }] },
+        const emailExit = await client.user.findFirst({
+          where: { email },
         });
 
-        if (exit) {
-          return { ok: false, error: "username or email is already taken" };
+        if (emailExit) {
+          return {
+            ok: false,
+            error: "해당 이메일은 이미 사용중입니다.",
+            type: "email",
+          };
+        }
+
+        const usernameExit = await client.user.findFirst({
+          where: { username },
+        });
+
+        if (usernameExit) {
+          return {
+            ok: false,
+            error: "해당 아이디는 이미 사용중입니다.",
+            type: "username",
+          };
         }
 
         await client.user.create({
@@ -30,7 +46,12 @@ const resolvers: Resolvers = {
 
         return { ok: true };
       } catch (e) {
-        return { ok: false, error: "Can not create account" };
+        console.log(e);
+        return {
+          ok: false,
+          error: "서버에 문제가 있습니다. 다시 접속해주세요.",
+          type: "internal",
+        };
       }
     },
   },

@@ -7,7 +7,7 @@ export const uploadUtils = ({ file }) => {
   const stream = createReadStream();
   const out = createWriteStream(process.cwd() + "/uploads/" + newFilename);
   stream.pipe(out);
-  return `http://192.168.0.11:${process.env.PORT}/static/${newFilename}`;
+  return `http://localhost:${process.env.PORT}/static/${newFilename}`;
 };
 
 export const hashUtils = (pw) => bcrypt.hash(pw, 10);
