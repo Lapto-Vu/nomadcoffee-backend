@@ -7,7 +7,9 @@ export const uploadUtils = ({ file }) => {
   const stream = createReadStream();
   const out = createWriteStream(process.cwd() + "/uploads/" + newFilename);
   stream.pipe(out);
-  return `http://localhost:${process.env.PORT}/static/${newFilename}`;
+  return process.env.NODE_ENV === "production"
+    ? `https://coffee-backend-lapto.herokuapp.com/static/${newFilename}`
+    : `http://localhost:${process.env.PORT}/static/${newFilename}`;
 };
 
 export const hashUtils = (pw) => bcrypt.hash(pw, 10);
