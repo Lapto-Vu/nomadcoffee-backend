@@ -38,7 +38,8 @@ const resolvers: Resolvers = {
         } catch (e) {
           return {
             ok: false,
-            error: `error happend, can not create coffeShop`,
+            type: "internal",
+            error: "서버에 문제가 있습니다. 다시 접속해주세요.",
           };
         }
       }
