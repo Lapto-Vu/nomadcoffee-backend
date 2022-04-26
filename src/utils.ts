@@ -9,7 +9,7 @@ export const uploadUtils = ({ file }) => {
   stream.pipe(out);
   return process.env.NODE_ENV === "production"
     ? `https://coffee-backend-lapto.herokuapp.com/static/${newFilename}`
-    : `http://192.168.0.48:${process.env.PORT}/static/${newFilename}`;
+    : `http://localhost:${process.env.PORT}/static/${newFilename}`;
 };
 
 export const hashUtils = (pw) => bcrypt.hash(pw, 10);
